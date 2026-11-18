@@ -1,0 +1,368 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Symbolic Systems at Stanford</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --ink:#17202b; --muted:#5a6573; --rule:#d9dee5;
+  --accent:#8c1515; --accent-soft:#f3e4e4;
+  --phil:#7a4bb3; --formal:#1f6fb2; --comp:#1c8a6b; --cog:#c0662a;
+  --display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body:"Literata", Georgia, "Times New Roman", serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#11161d; --surface:#18202a; --ink:#e7ebf0; --muted:#9aa5b3; --rule:#2b3542;
+    --accent:#e2706f; --accent-soft:#3a2224;
+    --phil:#b38ee6; --formal:#6fb1ea; --comp:#5fcfab; --cog:#eea064;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#11161d; --surface:#18202a; --ink:#e7ebf0; --muted:#9aa5b3; --rule:#2b3542;
+  --accent:#e2706f; --accent-soft:#3a2224;
+  --phil:#b38ee6; --formal:#6fb1ea; --comp:#5fcfab; --cog:#eea064;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;padding-inline:20px;padding-block:0 64px}
+.wrap{max-width:1040px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.6rem,3.5vw,2.1rem);font-weight:700}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+code,.code{font-family:var(--mono);font-size:.86em;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.prose{max-width:65ch;display:grid;gap:14px}
+
+/* Hero */
+header.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;padding-block:56px 40px;border-bottom:1px solid var(--rule)}
+.hero h1{font-size:clamp(2.4rem,6vw,4rem);font-weight:700;letter-spacing:-.02em}
+.hero h1 em{font-family:var(--body);font-style:italic;font-weight:400;color:var(--accent)}
+.hero .lede{font-size:1.15rem;color:var(--muted);max-width:52ch;margin-top:18px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:22px;font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.hero svg{width:100%;height:auto;max-width:420px;justify-self:center}
+.hero svg text{font-family:var(--display);font-weight:700;font-size:15px}
+.hero svg .sub{font-family:var(--mono);font-weight:400;font-size:10.5px;fill:var(--muted)}
+
+/* Nav */
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--rule);margin-inline:-20px;padding-inline:20px}
+nav.toc ul{list-style:none;margin:0 auto;padding:10px 0;display:flex;gap:6px 22px;flex-wrap:wrap;max-width:1040px;font-family:var(--mono);font-size:.78rem}
+nav.toc a{color:var(--muted);text-decoration:none}
+nav.toc a:hover{color:var(--accent)}
+
+section{padding-block:56px 8px;display:grid;gap:22px;scroll-margin-top:48px}
+.sec-head{display:grid;gap:8px}
+.sec-head p{color:var(--muted);max-width:65ch}
+
+/* Big idea */
+.areas{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.area{padding:18px;border-top:4px solid var(--c);background:var(--surface);display:grid;gap:6px;align-content:start}
+.area .q{font-style:italic;color:var(--muted);font-size:.95rem}
+
+/* Requirement blocks */
+.block{background:var(--surface);border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.block > .bh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 18px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.block > .bh .tag{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--c,var(--muted))}
+.block.area-block{border-top:4px solid var(--c)}
+.req{display:grid;grid-template-columns:28px 1fr;gap:4px 12px;padding:14px 18px;border-bottom:1px solid var(--rule)}
+.req:last-child{border-bottom:0}
+.req label{display:contents;cursor:pointer}
+.req input{appearance:none;width:20px;height:20px;border:1.5px solid var(--muted);border-radius:4px;margin:3px 0 0;cursor:pointer;display:grid;place-content:center;background:var(--surface)}
+.req input:checked{background:var(--c,var(--accent));border-color:var(--c,var(--accent))}
+.req input:checked::after{content:"";width:10px;height:6px;border:2px solid var(--surface);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.req input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.req .rt{font-weight:600}
+.req .rt .pick{font-family:var(--mono);font-size:.72rem;font-weight:400;color:var(--muted);margin-left:8px;letter-spacing:.04em;text-transform:uppercase}
+.req .opts{grid-column:2;color:var(--muted);font-size:.95rem}
+.req .opts ul{margin:4px 0 0;padding-left:18px;display:grid;gap:2px}
+.req .opts code{color:var(--ink)}
+.req.done .rt{text-decoration:line-through;text-decoration-color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+
+/* Progress */
+.progress{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.bar{flex:1;min-width:160px;height:8px;background:var(--rule);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.progress button{font:inherit;background:none;border:1px solid var(--rule);color:var(--muted);padding:4px 10px;border-radius:4px;cursor:pointer}
+.progress button:hover{color:var(--ink);border-color:var(--muted)}
+
+/* Concentrations */
+.conc{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.conc a{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid var(--rule);border-radius:6px;color:var(--ink);text-decoration:none;font-size:.98rem}
+.conc a:hover{border-color:var(--accent)}
+.conc a span{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+
+.policies{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.policies div{padding:16px 18px;border-left:3px solid var(--accent);background:var(--surface)}
+.policies b{font-family:var(--display);display:block;margin-bottom:4px}
+.policies p{font-size:.95rem;color:var(--muted)}
+
+.note{background:var(--accent-soft);padding:14px 18px;border-radius:6px;font-size:.95rem}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--rule);color:var(--muted);font-size:.9rem;display:grid;gap:6px}
+
+@media (max-width:820px){
+  header.hero{grid-template-columns:1fr;padding-block:36px 28px}
+  .areas{grid-template-columns:1fr 1fr}
+  .grid2{grid-template-columns:1fr}
+}
+@media (max-width:480px){ .areas{grid-template-columns:1fr} body{font-size:16px} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+
+<div class="wrap">
+<header class="hero">
+  <div>
+    <div class="eyebrow">Stanford University · B.S. · Interdisciplinary</div>
+    <h1>Symbolic Systems: the science of <em>minds &amp; machines</em></h1>
+    <p class="lede">An undergraduate major that studies how people and computers represent, process, and communicate information, drawing on philosophy, logic, computer science, psychology, and linguistics.</p>
+    <div class="meta"><span>Requirements: Version G4.3</span><span>Effective Sept 1, 2026</span><span>Gateway: SYMSYS 1</span></div>
+  </div>
+  <svg viewBox="0 0 420 340" role="img" aria-label="Four breadth areas surrounding the shared study of symbols">
+    <g fill="none" stroke-width="2">
+      <circle cx="160" cy="130" r="95" stroke="var(--phil)"/>
+      <circle cx="260" cy="130" r="95" stroke="var(--formal)"/>
+      <circle cx="160" cy="210" r="95" stroke="var(--cog)"/>
+      <circle cx="260" cy="210" r="95" stroke="var(--comp)"/>
+    </g>
+    <circle cx="210" cy="170" r="30" fill="var(--accent)"/>
+    <text x="210" y="176" text-anchor="middle" fill="var(--surface)" style="font-family:var(--mono);font-size:16px">∀x⟨S⟩</text>
+    <text x="100" y="80" text-anchor="middle" fill="var(--phil)">Philosophy</text>
+    <text x="100" y="96" text-anchor="middle" class="sub">mind · meaning</text>
+    <text x="320" y="80" text-anchor="middle" fill="var(--formal)">Formal</text>
+    <text x="320" y="96" text-anchor="middle" class="sub">logic · probability</text>
+    <text x="100" y="262" text-anchor="middle" fill="var(--cog)">Cognitive</text>
+    <text x="100" y="278" text-anchor="middle" class="sub">psych · linguistics</text>
+    <text x="320" y="262" text-anchor="middle" fill="var(--comp)">Computation</text>
+    <text x="320" y="278" text-anchor="middle" class="sub">programming · AI</text>
+  </svg>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <ul>
+    <li><a href="#what">What it is</a></li>
+    <li><a href="#prep">Preparations</a></li>
+    <li><a href="#breadth">Breadth core</a></li>
+    <li><a href="#experiential">Experiential</a></li>
+    <li><a href="#concentrations">Concentrations</a></li>
+    <li><a href="#policies">Policies</a></li>
+  </ul>
+</nav>
+
+<section id="what">
+  <div class="sec-head">
+    <div class="eyebrow">What it is</div>
+    <h2>One question, four ways of answering it</h2>
+  </div>
+  <div class="prose">
+    <p>Symbolic Systems (often shortened to “SymSys”) asks how meaning can live in symbols: words in a sentence, neurons in a brain, bits in a program. Founded at Stanford in 1986, the program treats the human mind and the computer as two kinds of symbol-processing systems and studies them side by side.</p>
+    <p>Every student completes the same <strong>Core</strong>, which covers four breadth areas, then goes deep through a <strong>five-course concentration</strong> such as Artificial Intelligence, Human-Computer Interaction, Neurosciences, or Natural Language. The major ends with hands-on <strong>experiential requirements</strong>: an advanced small seminar, a capstone practicum, an integrative course, and a public presentation.</p>
+  </div>
+  <div class="areas">
+    <div class="area" style="--c:var(--phil)"><h3>Philosophical Analysis</h3><p class="q">What is a mind? What does it mean for a symbol to mean something?</p></div>
+    <div class="area" style="--c:var(--formal)"><h3>Formal Methods</h3><p class="q">How do logic, computability, and probability model reasoning?</p></div>
+    <div class="area" style="--c:var(--comp)"><h3>Computational Methods</h3><p class="q">How do we build systems that process information?</p></div>
+    <div class="area" style="--c:var(--cog)"><h3>Empirical Cognitive Science</h3><p class="q">How do real people perceive, learn, and use language?</p></div>
+  </div>
+</section>
+
+<section id="checklist-intro" style="padding-block:40px 0">
+  <div class="note">Every requirement below has a checkbox. Tick off what you've finished to track progress. Checks are saved only in this browser.</div>
+  <div class="progress"><span id="pcount">0 of 0 complete</span><div class="bar"><i id="pbar"></i></div><button type="button" id="reset">Clear checks</button></div>
+</section>
+
+<section id="prep">
+  <div class="sec-head">
+    <div class="eyebrow">Step 1 · Complete early</div>
+    <h2>Preparations</h2>
+    <p>The gateway course is required before you can declare the major. Math preparation supports the formal and computational courses that follow.</p>
+  </div>
+  <div class="block">
+    <div class="bh"><h3>Gateway course</h3><span class="tag">Required to declare</span></div>
+    <div class="req"><label><input type="checkbox" id="c-sym1"><span class="rt"><code>SYMSYS 1</code> Minds and Machines</span></label>
+      <div class="opts">Cross-listed as <code>CS 24</code>, <code>LINGUIST 35</code>, <code>PHIL 99</code>, <code>PSYCH 35</code>.</div></div>
+  </div>
+  <div class="block">
+    <div class="bh"><h3>Calculus and linear algebra</h3><span class="tag">2 parts</span></div>
+    <div class="req"><label><input type="checkbox" id="c-mvc"><span class="rt">Multivariable calculus &amp; linear algebra<span class="pick">choose one</span></span></label>
+      <div class="opts"><ul>
+        <li><code>MATH 51</code> Linear Algebra, Multivariable Calculus, and Modern Applications</li>
+        <li><code>MATH 61CM</code> Modern Mathematics: Continuous Methods</li>
+        <li><code>MATH 61DM</code> Modern Mathematics: Discrete Methods</li>
+        <li><code>CME 100</code> / <code>ENGR 154</code> Vector Calculus for Engineers</li>
+      </ul></div></div>
+    <div class="req"><label><input type="checkbox" id="c-math8"><span class="rt">8 or more additional math units</span></label>
+      <div class="opts"><ul>
+        <li>Single-variable calculus: <code>MATH 19</code>, <code>MATH 20</code>, <code>MATH 21</code>, or AP/exam credit</li>
+        <li>Or more advanced: <code>MATH 52</code>, <code>53</code>, <code>62CM</code>, <code>62DM</code>, <code>63CM</code>, <code>104</code>, <code>113</code>; <code>CME 102</code>, <code>CME 104</code></li>
+        <li>Note: <code>MATH 21</code> is an enforced prerequisite for <code>MATH 51</code> and <code>CME 100</code>.</li>
+      </ul></div></div>
+  </div>
+</section>
+
+<section id="breadth">
+  <div class="sec-head">
+    <div class="eyebrow">Step 2 · The Core</div>
+    <h2>Breadth requirements</h2>
+    <p>One three-course sequence in each of the four areas, plus one cross-area course that ties them together.</p>
+  </div>
+  <div class="grid2">
+    <div class="block area-block" style="--c:var(--phil)">
+      <div class="bh"><h3>Philosophical Analysis</h3><span class="tag">3 courses</span></div>
+      <div class="req"><label><input type="checkbox" id="c-ph1"><span class="rt">Introductory philosophy<span class="pick">choose one</span></span></label>
+        <div class="opts">Any <code>PHIL</code> course of 3+ units (except <code>PHIL 99</code>/<code>SYMSYS 1</code>), or <code>THINK 69</code> Emotion.</div></div>
+      <div class="req"><label><input type="checkbox" id="c-ph2"><span class="rt"><code>PHIL 80</code> Mind, Matter, and Meaning</span></label>
+        <div class="opts">Required. Fulfills the Writing in the Major (WIM) requirement.</div></div>
+      <div class="req"><label><input type="checkbox" id="c-ph3"><span class="rt">Advanced philosophy<span class="pick">choose one</span></span></label>
+        <div class="opts">Requires <code>PHIL 80</code>. <code>PHIL 86</code>, <code>107B</code>, <code>132</code>, <code>160</code>, <code>164</code>, <code>167D</code>, <code>173B</code>, <code>175</code>, <code>180</code>, <code>181</code>, <code>181A</code>, <code>182H</code>, <code>184</code>, <code>184B</code>, <code>184D</code>, <code>185J</code>, <code>186</code>, <code>187</code>, <code>187B</code>, <code>188A</code>, <code>188B</code>, <code>189</code>; or <code>SYMSYS 207</code> Conceptual Issues in Cognitive Science.</div></div>
+    </div>
+
+    <div class="block area-block" style="--c:var(--formal)">
+      <div class="bh"><h3>Formal Methods</h3><span class="tag">3 courses</span></div>
+      <div class="req"><label><input type="checkbox" id="c-fm1"><span class="rt">Formal logic<span class="pick">choose one</span></span></label>
+        <div class="opts"><ul>
+          <li><code>PHIL 150</code> Mathematical Logic</li>
+          <li><code>PHIL 151</code> Metalogic (requires <code>PHIL 150</code>)</li>
+          <li><code>CS 157</code> Computational Logic</li>
+          <li><code>PHIL 49</code> + <code>MATH 56</code> (both)</li>
+        </ul></div></div>
+      <div class="req"><label><input type="checkbox" id="c-fm2"><span class="rt">Theory of computation<span class="pick">choose one</span></span></label>
+        <div class="opts"><ul>
+          <li><code>CS 103</code> Mathematical Foundations of Computing</li>
+          <li><code>CS 154</code> Introduction to Automata and Complexity Theory</li>
+          <li><code>PHIL 152</code> Computability and Logic</li>
+        </ul></div></div>
+      <div class="req"><label><input type="checkbox" id="c-fm3"><span class="rt">Probability and statistics<span class="pick">choose one</span></span></label>
+        <div class="opts"><code>CS 109</code> Probability for Computer Scientists; <code>STATS 116</code> or <code>117</code>; <code>MS&amp;E 120</code> or <code>220</code>; <code>EE 178</code>/<code>278A</code>; <code>CME 106</code>; <code>MATH 151</code>; <code>MATH 63DM</code>. (<code>STATS 110</code> is retiring and not recommended.)</div></div>
+    </div>
+
+    <div class="block area-block" style="--c:var(--comp)">
+      <div class="bh"><h3>Computational Methods</h3><span class="tag">3 courses</span></div>
+      <div class="req"><label><input type="checkbox" id="c-cm1"><span class="rt">Programming I<span class="pick">choose one</span></span></label>
+        <div class="opts"><code>CS 106A</code> Programming Methodology, or <code>CS 106AX</code> (JavaScript and Python). Completing <code>CS 106B</code>/<code>106X</code> shows equivalent preparation.</div></div>
+      <div class="req"><label><input type="checkbox" id="c-cm2"><span class="rt">Programming II<span class="pick">choose one</span></span></label>
+        <div class="opts"><code>CS 106B</code> Programming Abstractions, or <code>CS 106X</code> (accelerated).</div></div>
+      <div class="req"><label><input type="checkbox" id="c-cm3"><span class="rt">Beyond CS 106B<span class="pick">choose one</span></span></label>
+        <div class="opts"><code>CS 107</code>, <code>107E</code>, <code>124</code>, <code>129</code>, <code>146J</code>, <code>147L</code>, <code>151</code>, <code>221</code>, <code>229</code>, <code>229S</code>, <code>230</code>.</div></div>
+    </div>
+
+    <div class="block area-block" style="--c:var(--cog)">
+      <div class="bh"><h3>Empirical Cognitive Science</h3><span class="tag">3 courses</span></div>
+      <div class="req"><label><input type="checkbox" id="c-cg1"><span class="rt"><code>PSYCH 1</code> Introduction to Psychology</span></label>
+        <div class="opts">Required overview course.</div></div>
+      <div class="req"><label><input type="checkbox" id="c-cg2"><span class="rt">Introductory area course<span class="pick">choose one</span></span></label>
+        <div class="opts"><code>BIO 150</code> Human Behavioral Biology; <code>LINGUIST 105</code>, <code>120A</code>, <code>130A</code>, <code>130B</code>, <code>145</code>, <code>150</code>; <code>PSYCH 30</code>, <code>45</code>, <code>50</code>, <code>60</code>, <code>70</code>, <code>75</code>, <code>141</code>, <code>154</code>.</div></div>
+      <div class="req"><label><input type="checkbox" id="c-cg3"><span class="rt">Linguistic theory<span class="pick">choose one</span></span></label>
+        <div class="opts"><code>LINGUIST 110</code>, <code>116A</code>, <code>120A</code>, <code>120B</code>, <code>121A</code>, <code>121B</code>, <code>130A</code>, <code>130B</code>, <code>134A</code>, <code>145</code>, <code>160</code>.</div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="bh"><h3>Cross-area requirement</h3><span class="tag">1 course</span></div>
+    <div class="req"><label><input type="checkbox" id="c-xa"><span class="rt">A non-introductory course that combines methods from two or more breadth areas</span></label>
+      <div class="opts">Must have a Core course as a prerequisite. Suggested: <code>CS 147</code>, <code>CS 229</code>, <code>LINGUIST 130A</code>, <code>LINGUIST 180</code>, <code>PHIL 152</code>, <code>154</code>, <code>167D</code>, <code>181</code>, <code>181A</code>, <code>PSYCH 204</code>, <code>PSYCH 209</code>. See the program's full approved list.</div></div>
+  </div>
+</section>
+
+<section id="experiential">
+  <div class="sec-head">
+    <div class="eyebrow">Step 3 · Complete later</div>
+    <h2>Experiential requirements</h2>
+    <p>These put the Core to work through discussion, research, projects, and teaching. Each course component must be 3+ units.</p>
+  </div>
+  <div class="block">
+    <div class="bh"><h3>Advanced small seminar</h3><span class="tag">1 course</span></div>
+    <div class="req"><label><input type="checkbox" id="c-sem"><span class="rt">An interactive, discussion-based seminar of 20 or fewer students that builds on the Core</span></label>
+      <div class="opts">May also count toward your concentration.</div></div>
+  </div>
+  <div class="block">
+    <div class="bh"><h3>Capstone</h3><span class="tag">3 parts</span></div>
+    <div class="req"><label><input type="checkbox" id="c-prac"><span class="rt">Practicum<span class="pick">choose one</span></span></label>
+      <div class="opts"><ul>
+        <li><code>SYMSYS 190</code> Senior Honors Tutorial</li>
+        <li><code>SYMSYS 195</code>-series, or <code>CS 177</code> Human-Centered Project Management</li>
+        <li>Research: <code>SYMSYS 196</code>, or <code>CS 197</code>/<code>199</code>, <code>COMM 199</code>, <code>EDUC 190</code>, <code>LINGUIST 199</code>, <code>MATH 360</code>, <code>MUSIC 220D</code>, <code>NBIO 199</code>, <code>PHIL 196</code>/<code>197</code>, <code>PSYCH 195</code>/<code>199</code>, <code>STATS 199</code></li>
+        <li><code>SYMSYS 192</code> Symbolic Systems in Practice (with an internship)</li>
+        <li>Teaching: <code>SYMSYS 197</code>, <code>PSYCH 182</code>, <code>CS 198</code></li>
+      </ul></div></div>
+    <div class="req"><label><input type="checkbox" id="c-integ"><span class="rt">Integrative requirement<span class="pick">junior year or later</span></span></label>
+      <div class="opts">A continuation of <code>SYMSYS 190</code>, a <code>SYMSYS 195</code>-series course, <code>CS 177</code>, a research course from the practicum list, or a Concentration-Specific Integrative Course (CSIC).</div></div>
+    <div class="req"><label><input type="checkbox" id="c-pres"><span class="rt">Public presentation</span></label>
+      <div class="opts">Not a course. Present your work at the Fall or Spring Poster Fair, or at the Spring Honors Forum.</div></div>
+  </div>
+</section>
+
+<section id="concentrations">
+  <div class="sec-head">
+    <div class="eyebrow">Step 4 · Go deep</div>
+    <h2>Concentrations</h2>
+    <p>Every major completes a five-course concentration. Choose one of the sixteen below or design your own. Each link opens the official course list.</p>
+  </div>
+  <div class="req" style="padding:0;border:0"><label><input type="checkbox" id="c-conc"><span class="rt">Five courses in one concentration</span></label></div>
+  <div class="conc" id="conclist"></div>
+</section>
+
+<section id="policies">
+  <div class="sec-head">
+    <div class="eyebrow">Fine print</div>
+    <h2>Major policies</h2>
+  </div>
+  <div class="policies">
+    <div><b>Core grades</b><p>C- or better (or a no-option S grade). Every Core course must be 3+ units.</p></div>
+    <div><b>Concentration grades</b><p>D- or better. CR grades from letter-grade-optional courses don't count.</p></div>
+    <div><b>No double counting</b><p>Each course meets only one requirement, except listed overlaps such as the small seminar with the concentration.</p></div>
+    <div><b>Course Plan</b><p>Submit a Course Plan to the Student Services Officer. Petitions are available for course nominations and replacements.</p></div>
+  </div>
+</section>
+
+<footer>
+  <p>Summarized from the Symbolic Systems Program's Core Requirements (Version G4.3, effective Sept 1, 2026). Requirements change, and this page is not an official source. Always confirm with the <a href="https://symsys.stanford.edu/undergraduates/major-policies-requirements/core-requirements" target="_blank" rel="noopener">official requirements page</a> and your advisor.</p>
+  <p>Students who declared before Fall 2020 may follow the earlier G3 requirements.</p>
+</footer>
+</div>
+
+<script>
+const CONC=[
+ ["Applied Logic","AppLog","applied-logic-applog-concentration"],
+ ["Artificial Intelligence","AI","artificial-intelligence-ai-concentration"],
+ ["Biomedical Applications","Biomed","biomedical-applications-biomed-concentration"],
+ ["Cognitive Science","CogSci","cognitive-science-cogsci-concentration"],
+ ["Computational Foundations","CoFo","computational-foundations-cofo-concentration"],
+ ["Computational Social Science","CSS","computational-social-science-css-concentration"],
+ ["Computer Music","CoMu","computer-music-comu-concentration"],
+ ["Decision Making & Rationality","DMAR","decision-making-and-rationality-dmar-concentration"],
+ ["Human-Centered AI","HAI","human-centered-artificial-intelligence-hai-concentration"],
+ ["Human-Computer Interaction","HCI","human-computer-interaction-hci-concentration"],
+ ["Learning","Learning","learning-concentration"],
+ ["Mathematical Foundations","MaFo","mathematical-foundations-mafo-concentration"],
+ ["Media & Communication","MediaComm","media-and-communication-mediacomm-concentration"],
+ ["Natural Language","NL","natural-language-nl-concentration"],
+ ["Neurosciences","Neuro","neurosciences-neuro-concentration"],
+ ["Philosophical Foundations","PhiFo","philosophical-foundations-phifo-concentration"],
+ ["Individually Designed","IDC","individually-designed-concentrations-idcs"]
+];
+const base="https://symsys.stanford.edu/undergraduates/concentrations/";
+document.getElementById("conclist").innerHTML=CONC.map(([n,a,s])=>
+ `<a href="${base}${s}" target="_blank" rel="noopener">${n.replace("&","&amp;")}<span>${a}</span></a>`).join("");
+
+const KEY="symsys-checks";
+const boxes=[...document.querySelectorAll('.req input[type=checkbox]')];
+let saved={};
+try{saved=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
+function update(){
+  const n=boxes.filter(b=>b.checked).length;
+  boxes.forEach(b=>b.closest('.req').classList.toggle('done',b.checked));
+  document.getElementById('pcount').textContent=`${n} of ${boxes.length} complete`;
+  document.getElementById('pbar').style.width=(n/boxes.length*100)+'%';
+  try{localStorage.setItem(KEY,JSON.stringify(Object.fromEntries(boxes.map(b=>[b.id,b.checked]))))}catch(e){}
+}
+boxes.forEach(b=>{b.checked=!!saved[b.id];b.addEventListener('change',update)});
+document.getElementById('reset').addEventListener('click',()=>{boxes.forEach(b=>b.checked=false);update()});
+update();
+</script>
+
+</body></html>
